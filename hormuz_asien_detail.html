@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=390px">
+<title>Hormus — Asien Detail</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    width: 390px;
+    background: #080b14;
+    font-family: 'IBM Plex Sans', sans-serif;
+    color: #f0f2fa;
+    overflow-x: hidden;
+  }
+
+  /* ── GRID BG ── */
+  .page {
+    width: 390px;
+    padding: 0;
+    position: relative;
+  }
+
+  .page::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,60,20,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,60,20,0.03) 1px, transparent 1px);
+    background-size: 28px 28px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    z-index: 1;
+    padding: 38px 24px 24px;
+    background: linear-gradient(180deg, #0d1120 0%, transparent 100%);
+    border-bottom: 1px solid rgba(255,60,20,0.15);
+    margin-bottom: 0;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255,50,10,0.14);
+    border: 1px solid rgba(255,50,10,0.35);
+    border-radius: 3px;
+    padding: 4px 10px;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: #ff5530;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+
+  .dot-live {
+    width: 5px; height: 5px;
+    background: #ff3010;
+    border-radius: 50%;
+    animation: blink 1.4s infinite;
+  }
+
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 38px;
+    line-height: 1;
+    color: #fff;
+    margin-bottom: 4px;
+  }
+
+  .hero h1 em {
+    color: #ff3a10;
+    font-style: normal;
+  }
+
+  .hero-sub {
+    font-size: 11px;
+    color: #eceef6;
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .hero-context {
+    font-size: 11px;
+    line-height: 1.65;
+    color: #eceef6;
+  }
+
+  .hero-context strong { color: #eceef6; }
+
+  /* ── COUNTRY SECTIONS ── */
+  .country-section {
+    position: relative;
+    z-index: 1;
+    padding: 22px 24px 0;
+  }
+
+  .country-section:last-of-type {
+    padding-bottom: 0;
+  }
+
+  /* Header bar */
+  .c-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--col, rgba(255,60,20,0.2));
+  }
+
+  .c-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .c-flag { font-size: 26px; line-height: 1; }
+
+  .c-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 26px;
+    line-height: 1;
+    color: #fff;
+    letter-spacing: 0.02em;
+  }
+
+  .c-risk {
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 4px 9px;
+    border-radius: 3px;
+    background: var(--risk-bg, rgba(255,50,10,0.12));
+    color: var(--risk-col, #ff5530);
+    border: 1px solid var(--risk-border, rgba(255,50,10,0.25));
+  }
+
+  /* Stat row with bar */
+  .stat-block {
+    margin-bottom: 12px;
+  }
+
+  .stat-line {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 4px;
+  }
+
+  .stat-label {
+    font-size: 9px;
+    color: #eceef6;
+    flex: 0 0 110px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .stat-bar {
+    flex: 1;
+    height: 4px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .stat-fill {
+    height: 100%;
+    border-radius: 2px;
+    background: var(--col, #ff3a10);
+  }
+
+  .stat-val {
+    font-size: 10px;
+    font-weight: 700;
+    color: #f0f2fa;
+    flex: 0 0 40px;
+    text-align: right;
+  }
+
+  /* Big highlight number */
+  .highlight-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+
+  .hl-box {
+    flex: 1;
+    background: rgba(255,255,255,0.025);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 7px;
+    padding: 10px 10px 8px;
+    text-align: center;
+  }
+
+  .hl-box.accent {
+    background: rgba(255,50,10,0.08);
+    border-color: var(--col, rgba(255,50,10,0.25));
+  }
+
+  .hl-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    line-height: 1;
+    color: var(--col, #ff3a10);
+    margin-bottom: 2px;
+  }
+
+  .hl-num.white { color: #eceef6; }
+
+  .hl-desc {
+    font-size: 9px;
+    color: #eceef6;
+    line-height: 1.4;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  /* Fact list */
+  .facts {
+    list-style: none;
+    margin-bottom: 18px;
+  }
+
+  .facts li {
+    font-size: 11px;
+    color: #eceef6;
+    line-height: 1.6;
+    padding: 6px 0 6px 14px;
+    position: relative;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+
+  .facts li:last-child { border-bottom: none; }
+
+  .facts li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--col, #ff3a10);
+    font-size: 8px;
+    top: 8px;
+  }
+
+  .facts li strong { color: #eceef6; }
+
+  /* Alert box */
+  .alert-box {
+    background: rgba(255,50,10,0.07);
+    border: 1px solid rgba(255,50,10,0.2);
+    border-left: 3px solid var(--col, #ff3a10);
+    border-radius: 0 6px 6px 0;
+    padding: 10px 12px;
+    font-size: 11px;
+    color: #eceef6;
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+
+  .alert-box strong { color: #f0f2fa; }
+
+  /* Separator */
+  .sep {
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, rgba(255,60,20,0.12) 30%, rgba(255,60,20,0.12) 70%, transparent 100%);
+    margin: 4px 24px 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Footer */
+  .footer {
+    position: relative;
+    z-index: 1;
+    padding: 16px 24px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    margin-top: 6px;
+  }
+
+  .footer-sources {
+    font-size: 8.5px;
+    color: #606878;
+    line-height: 1.7;
+  }
+
+  .footer-date {
+    font-size: 8.5px;
+    color: #606878;
+    text-align: right;
+    line-height: 1.7;
+  }
+
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-badge"><div class="dot-live"></div> Stand: 16. April 2026</div>
+    <h1>HORMUS-KRISE<br><em>ASIEN IM FOKUS</em></h1>
+    <div class="hero-sub">Japan · Südkorea · Taiwan · Indien</div>
+    <div class="hero-context">
+      Die Straße von Hormus ist seit dem <strong>28. Februar 2026</strong> faktisch blockiert. Ein Waffenstillstand existiert auf dem Papier — die Durchfahrt bleibt gesperrt. Was das für die vier am stärksten betroffenen Länder Asiens bedeutet.
+    </div>
+  </div>
+
+  <!-- ════════════ JAPAN ════════════ -->
+  <div class="country-section" style="--col: #ff2800;">
+    <div class="c-header">
+      <div class="c-title">
+        <span class="c-flag">🇯🇵</span>
+        <span class="c-name">Japan</span>
+      </div>
+      <div class="c-risk" style="--risk-bg: rgba(255,40,0,0.12); --risk-col: #ff4020; --risk-border: rgba(255,40,0,0.3);">Risiko #1</div>
+    </div>
+
+    <div class="stat-block">
+      <div class="stat-line">
+        <div class="stat-label">Öl via Hormus</div>
+        <div class="stat-bar"><div class="stat-fill" style="width:70%"></div></div>
+        <div class="stat-val">~70%</div>
+      </div>
+      <div class="stat-line">
+        <div class="stat-label">Fossile Energieimporte</div>
+        <div class="stat-bar"><div class="stat-fill" style="width:87%"></div></div>
+        <div class="stat-val">87%</div>
+      </div>
+      <div class="stat-line">
+        <div class="stat-label">Öl aus Nahem Osten</div>
+        <div class="stat-bar"><div class="stat-fill" style="width:95%"></div></div>
+        <div class="stat-val">95%</div>
+      </div>
+    </div>
+
+    <div class="highlight-row">
+      <div class="hl-box accent">
+        <div class="hl-num">1,6 Mio</div>
+        <div class="hl-desc">Barrel/Tag<br>durch Hormus</div>
+      </div>
+      <div class="hl-box">
+        <div class="hl-num white">4,4 Mio t</div>
+        <div class="hl-desc">LNG-Reserve<br>= 2–4 Wochen</div>
+      </div>
+      <div class="hl-box">
+        <div class="hl-num white">#1</div>
+        <div class="hl-desc">Verwundbar-<br>keits-Ranking</div>
+      </div>
+    </div>
+
+    <ul class="facts">
+      <li>Japanische Raffinerien haben die Regierung aufgefordert, <strong>Notfall-Ölreserven freizugeben</strong></li>
+      <li>Ziel aller Neuwagen bis 2035: Hybrid, Plug-in oder Elektro — Hormus-Krise beschleunigt diesen Zeitplan</li>
+      <li>Yen steht unter Druck: Stagflationsrisiko steigt durch höhere Energieimportkosten</li>
+      <li>USA und Japan prüfen gemeinsame Investitionen in <strong>Alaska-Ölinfrastruktur</strong> als Ausweichroute</li>
+    </ul>
+
+    <div class="alert-box">
+      💡 <strong>Kernproblem:</strong> Japan hat kaum Eigenproduktion und keine direkte Landverbindung zu Ölquellen. Die Straße von Hormus ist keine Option — sie ist die einzige Option.
+    </div>
+  </div>
+
+  <div class="sep"></div>
+
+  <!-- ════════════ SÜDKOREA ════════════ -->
+  <div class="country-section" style="--col: #ff5010;">
+    <div class="c-header">
+      <div class="c-title">
+        <span class="c-flag">🇰🇷</span>
+        <span class="c-name">Südkorea</span>
+      </div>
+      <div class="c-risk" style="--risk-bg: rgba(255,80,16,0.12); --risk-col: #ff6030; --risk-border: rgba(255,80,16,0.3);">Risiko #2</div>
+    </div>
+
+    <div class="stat-block">
+      <div class="stat-line">
+        <div class="stat-label">Öl via Hormus</div>
+        <div class="stat-bar"><div class="stat-fill" style="width:68%"></div></div>
+        <div class="stat-val">~68%</div>
+      </div>
+      <div class="stat-line">
+        <div class="stat-label">Öl aus Nahem Osten</div>
+        <div class="stat-bar"><div class="stat-fill" style="width:75%"></div></div>
+        <div class="stat-val">~75%</div>
+      </div>
+      <div class="stat-line">
+        <div class="stat-label">Öl-Import / BIP</div>
+        <div class="stat-bar"><div class="stat-fill" style="width:27%"></div></div>
+        <div class="stat-val">2,7%</div>
+      </div>
+    </div>
+
+    <div class="highlight-row">
+      <div class="hl-box accent">
+        <div class="hl-num">1,7 Mio</div>
+        <div class="hl-desc">Barrel/Tag<br>durch Hormus</div>
+      </div>
+      <div class="hl-box">
+        <div class="hl-num white">3,5 Mio t</div>
+        <div class="hl-desc">LNG-Reserve<br>= 2–4 Wochen</div>
+      </div>
+      <div class="hl-box">
+        <div class="hl-num white">–12%</div>
+        <div class="hl-desc">KOSPI<br>Einbruch 4.3.</div>
+      </div>
+    </div>
+
+    <ul class="facts">
+      <li>Schlimmster Börsen-Einbruch der Geschichte: KOSPI fiel am 4. März 2026 um <strong>12% an einem einzigen Tag</strong></li>
+      <li>Naphtha-Export für <strong>5 Monate eingeschränkt</strong> — Rohstoff für Petrochemie und Treibstoff</li>
+      <li>Samsung &amp; SK Hynix: Chip-Produktion bisher stabil, aber LNG-Engpässe bedrohen Stromversorgung der Fabs</li>
+      <li>Nomura stuft Südkorea als eines der <strong>verwundbarsten Länder</strong> auf der Leistungsbilanzseite ein</li>
+    </ul>
+
+    <div class="alert-box">
+      💡 <strong>Kernproblem:</strong> Südkorea ist nicht nur Öl-Importeur — es ist auch Weltmarktführer bei DRAM- und NAND-Chips. Energieausfall = Produktionsstopp der globalen Halbleiterlieferkette.
+    </div>
+  </div>
+
+  <div class="sep"></div>
+
+  <!-- ════════════ TAIWAN ════════════ -->
+  <div class="country-section" style="--col: #e03a90;">
+    <div class="c-header">
+      <div class="c-title">
+        <span class="c-flag">🇹🇼</span>
+        <span class="c-name">Taiwan</span>
+      </div>
+      <div class="c-risk" style="--risk-bg: rgba(220,50,140,0.1); --risk-col: #e04898; --risk-border: rgba(220,50,140,0.25);">Chip-Risiko</div>
+    </div>
+
+    <div class="stat-block">
+      <div class="stat-line">
+        <div class="stat-label">Energie importiert</div>
+        <div class="stat-bar"><div class="stat-fill" style="width:97%; background: #e03a90"></div></div>
+        <div class="stat-val">97%</div>
+      </div>
+      <div class="stat-line">
+        <div class="stat-label">Strom via LNG</div>
+        <div class="stat-bar"><div class="stat-fill" style="width:37%; background: #e03a90"></div></div>
+        <div class="stat-val">>37%</div>
+      </div>
+      <div class="stat-line">
+        <div class="stat-label">LNG-Reserve</div>
+        <div class="stat-bar"><div class="stat-fill" style="width:11%; background: #ff8030"></div></div>
+        <div class="stat-val" style="color:#ff8030">11 Tage</div>
+      </div>
+    </div>
+
+    <div class="highlight-row">
+      <div class="hl-box" style="background: rgba(220,50,140,0.08); border-color: rgba(220,50,140,0.2);">
+        <div class="hl-num" style="color:#e03a90; font-size:22px;">90%</div>
+        <div class="hl-desc">Weltmarkt-<br>anteil TSMC<br>advanced chips</div>
+      </div>
+      <div class="hl-box">
+        <div class="hl-num white" style="font-size:22px;">$35,6 Mrd</div>
+        <div class="hl-desc">TSMC Q1-Umsatz<br>Rekord — trotz Krise</div>
+      </div>
+      <div class="hl-box">
+        <div class="hl-num" style="color:#ff8030; font-size:22px;">2x</div>
+        <div class="hl-desc">Helium-Preis<br>seit Kriegsbeginn</div>
+      </div>
+    </div>
+
+    <ul class="facts">
+      <li>Nur <strong>11 Tage LNG-Reserve</strong> — kürzester Puffer aller betroffenen Länder (Stand März 2026)</li>
+      <li>Katar lieferte ~⅓ des globalen Heliums — seit Angriffen auf Ras Laffan offline: <strong>Heliumpreis verdoppelt</strong></li>
+      <li>Helium wird für Kühlung &amp; Lithografie bei 3-nm- und 2-nm-Chips benötigt — kein Ersatz verfügbar</li>
+      <li>TAIEX-Index fiel am 4. März um <strong>4,35%</strong> — getrieben durch TSMC-Gewichtung</li>
+      <li>Taiwan importierte Naphtha zuletzt aus dem Nahen Osten (russisches Naphtha unter Alliierten-Druck gestrichen)</li>
+      <li>TSMC investiert <strong>$56 Mrd.</strong> in Fabriken außerhalb Taiwans — Hormus beschleunigt Diversifizierung</li>
+    </ul>
+
+    <div class="alert-box" style="border-left-color: #e03a90; background: rgba(220,50,140,0.06); border-color: rgba(220,50,140,0.2);">
+      💡 <strong>Kernproblem:</strong> Taiwan produziert 90% der weltweit fortschrittlichsten Chips — und hat nur 11 Tage LNG-Reserve. Ein Stromausfall in den Fabs beschädigt $350-Mio.-EUV-Maschinen unwiederbringlich.
+    </div>
+  </div>
+
+  <div class="sep"></div>
+
+  <!-- ════════════ INDIEN ════════════ -->
+  <div class="country-section" style="--col: #f0a020;">
+    <div class="c-header">
+      <div class="c-title">
+        <span class="c-flag">🇮🇳</span>
+        <span class="c-name">Indien</span>
+      </div>
+      <div class="c-risk" style="--risk-bg: rgba(240,160,32,0.1); --risk-col: #f0a828; --risk-border: rgba(240,160,32,0.25);">Risiko #3</div>
+    </div>
+
+    <div class="stat-block">
+      <div class="stat-line">
+        <div class="stat-label">Öl via Hormus</div>
+        <div class="stat-bar"><div class="stat-fill" style="width:50%; background: #f0a020"></div></div>
+        <div class="stat-val">~50%</div>
+      </div>
+      <div class="stat-line">
+        <div class="stat-label">Gas via Hormus</div>
+        <div class="stat-bar"><div class="stat-fill" style="width:60%; background: #f0a020"></div></div>
+        <div class="stat-val">~60%</div>
+      </div>
+      <div class="stat-line">
+        <div class="stat-label">LNG aus Katar/VAE</div>
+        <div class="stat-bar"><div class="stat-fill" style="width:53%; background: #f0a020"></div></div>
+        <div class="stat-val">53%</div>
+      </div>
+    </div>
+
+    <div class="highlight-row">
+      <div class="hl-box" style="background: rgba(240,160,32,0.07); border-color: rgba(240,160,32,0.2);">
+        <div class="hl-num" style="color:#f0a020;">60%</div>
+        <div class="hl-desc">LPG-Bedarf<br>wird importiert</div>
+      </div>
+      <div class="hl-box">
+        <div class="hl-num white">–₹10</div>
+        <div class="hl-desc">Regierung senkte<br>Benzinsteuer<br>27. März</div>
+      </div>
+      <div class="hl-box">
+        <div class="hl-num white">#4</div>
+        <div class="hl-desc">Größte Öl-<br>raffinerie-<br>kapazität weltweit</div>
+      </div>
+    </div>
+
+    <ul class="facts">
+      <li>LPG = Hauptkochgas für Haushalte und Restaurants — <strong>60% des LPG-Bedarfs</strong> laufen durch Hormus</li>
+      <li>Regierung hob am 27. März die Verbrauchssteuer auf Benzin/Diesel um ₹10 pro Liter an — Panik an Tankstellen</li>
+      <li>Exportsteuer auf Diesel (<strong>₹21,50/L</strong>) und Kerosin (<strong>₹29,50/L</strong>) erhöht, um Inlandsversorgung zu sichern</li>
+      <li>Iran hatte indische Schiffe zunächst durchgelassen — inzwischen unklare Lage</li>
+      <li>Indische Raffinerien kaufen verstärkt <strong>russisches Öl</strong> als Ersatz für Nahost-Lieferungen</li>
+      <li>Düngerversorgung gefährdet: Golf-Region liefert wesentliche Teile von Indiens Urea-Importen</li>
+    </ul>
+
+    <div class="alert-box" style="border-left-color: #f0a020; background: rgba(240,160,32,0.05); border-color: rgba(240,160,32,0.18);">
+      💡 <strong>Kernproblem:</strong> 1,4 Milliarden Menschen, davon viele mit wenig finanziellem Puffer. LPG-Knappheit trifft direkt die Küche — politisch explosiv. Indien hat Raffinerie-Kapazität, braucht aber das Rohöl.
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-sources">
+      Quellen: EIA, IEA, CNBC, Bloomberg, Wikipedia,<br>
+      Taiwan News / Nikkei Asia, Semafor, Al Habtoor<br>
+      Research Centre, Zero Carbon Analytics (Apr. 2026)
+    </div>
+    <div class="footer-date">
+      Stand:<br>16. April 2026<br>
+      Teil 2 / 2
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

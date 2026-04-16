@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=390px">
+<title>Hormus Infografik</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    width: 390px;
+    min-height: 844px;
+    background: #0a0e1a;
+    font-family: 'IBM Plex Sans', sans-serif;
+    color: #e8e8e8;
+    overflow-x: hidden;
+  }
+
+  .card {
+    width: 390px;
+    min-height: 844px;
+    background: linear-gradient(160deg, #0d1220 0%, #0a0e1a 50%, #100a14 100%);
+    position: relative;
+    padding: 36px 24px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  /* Background grid */
+  .card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,80,30,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,80,30,0.04) 1px, transparent 1px);
+    background-size: 32px 32px;
+    pointer-events: none;
+  }
+
+  /* Top badge */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: rgba(255,60,20,0.15);
+    border: 1px solid rgba(255,60,20,0.4);
+    border-radius: 4px;
+    padding: 5px 12px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #ff6040;
+    width: fit-content;
+    margin-bottom: 16px;
+  }
+
+  .badge .dot {
+    width: 6px; height: 6px;
+    background: #ff4020;
+    border-radius: 50%;
+    animation: pulse 1.5s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  /* Title */
+  h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 52px;
+    line-height: 0.95;
+    color: #ffffff;
+    letter-spacing: 0.01em;
+    margin-bottom: 4px;
+  }
+
+  h1 span {
+    color: #ff4020;
+  }
+
+  .subtitle {
+    font-size: 12px;
+    color: #eceef6;
+    letter-spacing: 0.05em;
+    margin-bottom: 22px;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+
+  /* Divider */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, #ff4020 0%, rgba(255,64,32,0.1) 100%);
+    margin-bottom: 20px;
+  }
+
+  /* Context box */
+  .context {
+    background: rgba(255,255,255,0.03);
+    border-left: 3px solid #ff4020;
+    border-radius: 0 6px 6px 0;
+    padding: 12px 14px;
+    font-size: 12px;
+    line-height: 1.6;
+    color: #c8cee0;
+    margin-bottom: 20px;
+  }
+
+  .context strong { color: #e0e0e0; }
+
+  /* Section label */
+  .section-label {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #ff6040;
+    margin-bottom: 10px;
+  }
+
+  /* Comparison grid */
+  .compare-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .compare-col {
+    background: rgba(255,255,255,0.03);
+    border-radius: 8px;
+    padding: 12px;
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .compare-col.asia {
+    border-color: rgba(255,64,32,0.3);
+    background: rgba(255,40,10,0.07);
+  }
+
+  .compare-col.europe {
+    border-color: rgba(60,130,255,0.25);
+    background: rgba(30,80,255,0.05);
+  }
+
+  .col-header {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .col-header .flag { font-size: 14px; }
+  .asia .col-header { color: #ff6040; }
+  .europe .col-header { color: #5090ff; }
+
+  .stat-row {
+    margin-bottom: 8px;
+  }
+
+  .stat-country {
+    font-size: 10px;
+    color: #eceef6;
+    margin-bottom: 2px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .stat-country span { color: #e0e0e0; font-weight: 600; }
+
+  .bar-track {
+    height: 5px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .bar-fill {
+    height: 100%;
+    border-radius: 3px;
+    background: #ff4020;
+  }
+
+  .europe .bar-fill {
+    background: #3a70ff;
+  }
+
+  /* Country cards */
+  .country-card {
+    background: rgba(255,255,255,0.025);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 8px;
+    padding: 12px 14px;
+    margin-bottom: 9px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .country-card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: var(--accent, #ff4020);
+  }
+
+  .country-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 7px;
+  }
+
+  .country-name {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #e8e8e8;
+  }
+
+  .country-flag { font-size: 16px; }
+
+  .risk-badge {
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 3px 7px;
+    border-radius: 3px;
+    background: rgba(255,64,32,0.15);
+    color: var(--accent, #ff6040);
+    border: 1px solid rgba(255,64,32,0.25);
+  }
+
+  .risk-badge.medium {
+    background: rgba(255,160,30,0.12);
+    color: #ffaa30;
+    border-color: rgba(255,160,30,0.25);
+  }
+
+  .risk-badge.low {
+    background: rgba(60,180,100,0.1);
+    color: #50c070;
+    border-color: rgba(60,180,100,0.2);
+  }
+
+  .country-dep {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 7px;
+  }
+
+  .dep-label {
+    font-size: 9px;
+    color: #e0e4f0;
+    white-space: nowrap;
+    flex-shrink: 0;
+    width: 80px;
+  }
+
+  .dep-bar {
+    flex: 1;
+    height: 4px;
+    background: rgba(255,255,255,0.07);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .dep-bar-fill {
+    height: 100%;
+    border-radius: 2px;
+    background: var(--accent, #ff4020);
+  }
+
+  .dep-pct {
+    font-size: 9px;
+    font-weight: 700;
+    color: #e0e0e0;
+    width: 32px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  .country-facts {
+    list-style: none;
+    margin-top: 6px;
+  }
+
+  .country-facts li {
+    font-size: 10px;
+    color: #eceef6;
+    line-height: 1.55;
+    padding-left: 12px;
+    position: relative;
+    margin-bottom: 2px;
+  }
+
+  .country-facts li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--accent, #ff4020);
+    font-size: 8px;
+    top: 1px;
+  }
+
+  .country-facts li strong { color: #d0d4e0; }
+
+  /* Key number */
+  .big-stat {
+    background: rgba(255,64,32,0.08);
+    border: 1px solid rgba(255,64,32,0.2);
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin-bottom: 20px;
+    display: flex;
+    gap: 14px;
+    align-items: center;
+  }
+
+  .big-number {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 52px;
+    color: #ff4020;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  .big-desc {
+    font-size: 11px;
+    color: #c8cee0;
+    line-height: 1.6;
+  }
+
+  .big-desc strong { color: #e0e0e0; }
+
+  /* Footer */
+  .footer {
+    margin-top: auto;
+    padding-top: 12px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-left {
+    font-size: 9px;
+    color: #e0e4f0;
+    line-height: 1.5;
+  }
+
+  .footer-date {
+    font-size: 9px;
+    color: #e0e4f0;
+    text-align: right;
+  }
+</style>
+</head>
+<body>
+<div class="card">
+
+  <div class="badge">
+    <div class="dot"></div>
+    Waffenstillstand — Sperrung bleibt
+  </div>
+
+  <h1>STRASSE<br>VON<br><span>HORMUS</span></h1>
+  <div class="subtitle">Wer leidet wirklich unter der Blockade?</div>
+
+  <div class="divider"></div>
+
+  <div class="context">
+    <strong>Was ist passiert?</strong> Seit dem 28. Feb. 2026 blockiert Iran die Straße von Hormus. Trotz Waffenstillstand vom 8. April ist die Durchfahrt faktisch immer noch gesperrt — <strong>230 Öltanker stecken im Golf fest.</strong>
+  </div>
+
+  <div class="section-label">Abhängigkeit vom Hormus-Öl</div>
+
+  <div class="compare-grid">
+    <div class="compare-col asia">
+      <div class="col-header"><span class="flag">🌏</span> Asien</div>
+
+      <div class="stat-row">
+        <div class="stat-country">Japan <span>~70%</span></div>
+        <div class="bar-track"><div class="bar-fill" style="width:70%"></div></div>
+      </div>
+      <div class="stat-row">
+        <div class="stat-country">Südkorea <span>~68%</span></div>
+        <div class="bar-track"><div class="bar-fill" style="width:68%"></div></div>
+      </div>
+      <div class="stat-row">
+        <div class="stat-country">Indien <span>~50%</span></div>
+        <div class="bar-track"><div class="bar-fill" style="width:50%"></div></div>
+      </div>
+      <div class="stat-row">
+        <div class="stat-country">China <span>~40%</span></div>
+        <div class="bar-track"><div class="bar-fill" style="width:40%"></div></div>
+      </div>
+    </div>
+
+    <div class="compare-col europe">
+      <div class="col-header"><span class="flag">🇪🇺</span> Europa</div>
+
+      <div class="stat-row">
+        <div class="stat-country">Öl <span>~12%</span></div>
+        <div class="bar-track"><div class="bar-fill" style="width:12%"></div></div>
+      </div>
+      <div class="stat-row">
+        <div class="stat-country">LNG <span>~7%</span></div>
+        <div class="bar-track"><div class="bar-fill" style="width:7%"></div></div>
+      </div>
+      <div class="stat-row" style="margin-top:10px">
+        <div class="stat-country" style="font-size:9px; color:#5090ff;">Alternative Quellen:</div>
+      </div>
+      <div style="font-size:9px; color:#b0b8c8; line-height:1.7; margin-top:2px;">
+        🇳🇴 Norwegen<br>🇺🇸 USA (LNG)<br>🇩🇿 Algerien
+      </div>
+    </div>
+  </div>
+
+  <div class="big-stat">
+    <div class="big-number">84%</div>
+    <div class="big-desc">
+      aller Hormus-Lieferungen gehen nach <strong>Asien</strong> — nicht nach Europa.<br>
+      <span style="color:#b0b8c8; font-size:10px;">Quelle: US Energy Information Administration, 2024</span>
+    </div>
+  </div>
+
+  <div class="section-label">Länder im Detail — Betroffenheit</div>
+
+  <!-- Japan -->
+  <div class="country-card" style="--accent: #ff3010;">
+    <div class="country-header">
+      <div class="country-name"><span class="country-flag">🇯🇵</span> Japan</div>
+      <div class="risk-badge">Risiko #1</div>
+    </div>
+    <div class="country-dep">
+      <div class="dep-label">Öl via Hormus</div>
+      <div class="dep-bar"><div class="dep-bar-fill" style="width:70%"></div></div>
+      <div class="dep-pct">~70%</div>
+    </div>
+    <div class="country-dep">
+      <div class="dep-label">Energie import</div>
+      <div class="dep-bar"><div class="dep-bar-fill" style="width:87%"></div></div>
+      <div class="dep-pct">87%</div>
+    </div>
+    <ul class="country-facts">
+      <li><strong>1,6 Mio. Barrel/Tag</strong> laufen normalerweise durch die Straße</li>
+      <li>95% des Rohöls stammt aus dem Nahen Osten</li>
+      <li>Regierung hat <strong>Notfall-Ölreserven</strong> freigegeben</li>
+      <li>Yen unter Druck, Stagflationsrisiko steigt</li>
+    </ul>
+  </div>
+
+  <!-- Südkorea -->
+  <div class="country-card" style="--accent: #ff5520;">
+    <div class="country-header">
+      <div class="country-name"><span class="country-flag">🇰🇷</span> Südkorea</div>
+      <div class="risk-badge">Risiko #2</div>
+    </div>
+    <div class="country-dep">
+      <div class="dep-label">Öl via Hormus</div>
+      <div class="dep-bar"><div class="dep-bar-fill" style="width:68%"></div></div>
+      <div class="dep-pct">~68%</div>
+    </div>
+    <div class="country-dep">
+      <div class="dep-label">LNG-Reserve</div>
+      <div class="dep-bar"><div class="dep-bar-fill" style="width:30%; background:#ffaa30"></div></div>
+      <div class="dep-pct" style="color:#ffaa30">2–4 Wo.</div>
+    </div>
+    <ul class="country-facts">
+      <li><strong>1,7 Mio. Barrel/Tag</strong> kamen über Hormus</li>
+      <li>Naphtha-Export für <strong>5 Monate</strong> eingeschränkt</li>
+      <li>Stromausfälle drohen bei längerem LNG-Engpass</li>
+      <li>Leistungsbilanz stark unter Druck (Öl = 2,7% BIP)</li>
+    </ul>
+  </div>
+
+  <!-- Indien -->
+  <div class="country-card" style="--accent: #ff7020;">
+    <div class="country-header">
+      <div class="country-name"><span class="country-flag">🇮🇳</span> Indien</div>
+      <div class="risk-badge">Risiko #3</div>
+    </div>
+    <div class="country-dep">
+      <div class="dep-label">Öl via Hormus</div>
+      <div class="dep-bar"><div class="dep-bar-fill" style="width:50%"></div></div>
+      <div class="dep-pct">~50%</div>
+    </div>
+    <div class="country-dep">
+      <div class="dep-label">LNG aus Katar/VAE</div>
+      <div class="dep-bar"><div class="dep-bar-fill" style="width:53%"></div></div>
+      <div class="dep-pct">53%</div>
+    </div>
+    <ul class="country-facts">
+      <li>Fast <strong>60% der Gasversorgung</strong> laufen durch Hormus</li>
+      <li>Iran hatte indische Schiffe zunächst <strong>nicht</strong> blockiert</li>
+      <li>Diversifizierung läuft, strukturelle Abhängigkeit bleibt hoch</li>
+      <li>Düngerversorgung für Landwirtschaft gefährdet</li>
+    </ul>
+  </div>
+
+  <!-- Pakistan / Bangladesch -->
+  <div class="country-card" style="--accent: #ffaa20;">
+    <div class="country-header">
+      <div class="country-name"><span class="country-flag">🇵🇰</span> Pakistan &amp; <span style="font-size:14px">🇧🇩</span> Bangladesch</div>
+      <div class="risk-badge" style="--accent:#ffaa30">Akutfall</div>
+    </div>
+    <div class="country-dep">
+      <div class="dep-label">LNG aus Katar/VAE</div>
+      <div class="dep-bar"><div class="dep-bar-fill" style="width:99%; background:#ffaa20"></div></div>
+      <div class="dep-pct" style="color:#ffaa20">99% / 72%</div>
+    </div>
+    <ul class="country-facts">
+      <li>Pakistan bat Saudi-Arabien offiziell um <strong>Umleitung via Yanbu</strong></li>
+      <li>Bevölkerung aufgerufen, Cricket-Spiele <strong>von zuhause</strong> zu schauen (Treibstoffsparen)</li>
+      <li>Bangladesh: Gas deckt <strong>50% der Stromproduktion</strong> — Engpässe direkt = Blackouts</li>
+      <li>Kaum Reserven, kein Ausweichmarkt verfügbar</li>
+    </ul>
+  </div>
+
+  <!-- China -->
+  <div class="country-card" style="--accent: #e03030;">
+    <div class="country-header">
+      <div class="country-name"><span class="country-flag">🇨🇳</span> China</div>
+      <div class="risk-badge medium">Risiko #4</div>
+    </div>
+    <div class="country-dep">
+      <div class="dep-label">Öl via Hormus</div>
+      <div class="dep-bar"><div class="dep-bar-fill" style="width:40%"></div></div>
+      <div class="dep-pct">~40%</div>
+    </div>
+    <div class="country-dep">
+      <div class="dep-label">Iran-Öl-Käufer</div>
+      <div class="dep-bar"><div class="dep-bar-fill" style="width:90%"></div></div>
+      <div class="dep-pct">90%+</div>
+    </div>
+    <ul class="country-facts">
+      <li>Iran erlaubte <strong>chinesische Schiffe</strong> als erste — Sonderkorridore</li>
+      <li>~1 Mrd. Barrel Ölreserven = wenige Monate Puffer</li>
+      <li>Kauft über <strong>90% von Irans Ölexporten</strong> — widersprüchliche Interessen</li>
+      <li>Konkurriert nun mit Europa um Atlantik-LNG-Lieferungen</li>
+    </ul>
+  </div>
+
+  <!-- Europa Vergleich -->
+  <div class="country-card" style="--accent: #3a70ff;">
+    <div class="country-header">
+      <div class="country-name"><span class="country-flag">🇪🇺</span> Europa</div>
+      <div class="risk-badge low">Geringeres Risiko</div>
+    </div>
+    <div class="country-dep">
+      <div class="dep-label">Öl via Hormus</div>
+      <div class="dep-bar"><div class="dep-bar-fill" style="width:12%; background:#3a70ff"></div></div>
+      <div class="dep-pct" style="color:#3a70ff">~12%</div>
+    </div>
+    <div class="country-dep">
+      <div class="dep-label">LNG via Hormus</div>
+      <div class="dep-bar"><div class="dep-bar-fill" style="width:7%; background:#3a70ff"></div></div>
+      <div class="dep-pct" style="color:#3a70ff">~7%</div>
+    </div>
+    <ul class="country-facts">
+      <li>Alternative Quellen: <strong>Norwegen, USA, Algerien</strong></li>
+      <li>Preisschock durch globalen Markt — Diesel wird teurer</li>
+      <li>Konkurrenz mit Asien um Ersatzlieferungen treibt Preise</li>
+      <li>Kein akuter Versorgungsengpass — aber <strong>Inflation steigt</strong></li>
+    </ul>
+  </div>
+
+  <div class="footer">
+    <div class="footer-left">Quellen: EIA, IEA, Bloomberg,<br>CNBC, CNN, Wikipedia (Apr. 2026)</div>
+    <div class="footer-date">Stand:<br>16. April 2026</div>
+  </div>
+
+</div>
+</body>
+</html>
