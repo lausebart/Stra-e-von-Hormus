@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=390px">
+<title>Hormus — Alltag der Menschen</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    width: 390px;
+    background: #07090f;
+    font-family: 'IBM Plex Sans', sans-serif;
+    color: #f0f2fa;
+    overflow-x: hidden;
+  }
+
+  .page { width: 390px; position: relative; }
+
+  /* grid bg */
+  .page::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,80,20,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,80,20,0.025) 1px, transparent 1px);
+    background-size: 26px 26px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative; z-index: 1;
+    padding: 36px 24px 22px;
+    background: linear-gradient(180deg, #0c1020 0%, transparent 100%);
+    border-bottom: 1px solid rgba(255,70,20,0.12);
+  }
+
+  .badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(255,50,10,0.13);
+    border: 1px solid rgba(255,50,10,0.32);
+    border-radius: 3px;
+    padding: 4px 10px;
+    font-size: 9px; font-weight: 700; letter-spacing: 0.13em;
+    color: #ff5530; text-transform: uppercase;
+    margin-bottom: 13px;
+  }
+  .live-dot {
+    width: 5px; height: 5px;
+    background: #ff3010; border-radius: 50%;
+    animation: blink 1.4s infinite;
+  }
+  @keyframes blink { 0%,100%{opacity:1}50%{opacity:0.15} }
+
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px; line-height: 1;
+    color: #fff; margin-bottom: 4px;
+  }
+  .hero h1 em { color: #ff3a10; font-style: normal; }
+
+  .hero-sub {
+    font-size: 10px; color: #e0e4f0; font-weight: 700;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    margin-bottom: 13px;
+  }
+
+  .hero-intro {
+    font-size: 11.5px; line-height: 1.65; color: #eceef6;
+  }
+  .hero-intro strong { color: #e8eaf4; }
+
+  /* ── COUNTRY BLOCK ── */
+  .cblock {
+    position: relative; z-index: 1;
+    padding: 22px 24px 4px;
+  }
+
+  .cblock-header {
+    display: flex; align-items: center;
+    justify-content: space-between;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--c, rgba(255,50,10,0.18));
+    margin-bottom: 14px;
+  }
+
+  .cname-row {
+    display: flex; align-items: center; gap: 9px;
+  }
+  .cflag { font-size: 24px; line-height: 1; }
+  .cname {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 24px; color: #fff; letter-spacing: 0.02em;
+  }
+
+  .clabel {
+    font-size: 8px; font-weight: 700; letter-spacing: 0.11em;
+    text-transform: uppercase; padding: 3px 8px; border-radius: 3px;
+    background: var(--lb, rgba(255,50,10,0.1));
+    color: var(--lc, #ff5030);
+    border: 1px solid var(--ld, rgba(255,50,10,0.22));
+  }
+
+  /* scene intro */
+  .scene {
+    font-size: 12px; line-height: 1.65;
+    color: #eceef6;
+    font-style: italic;
+    border-left: 2px solid var(--c, rgba(255,50,10,0.35));
+    padding-left: 11px;
+    margin-bottom: 14px;
+  }
+  .scene strong { color: #e8eaf4; font-style: normal; }
+
+  /* fact rows */
+  .fact-row {
+    display: flex; gap: 11px;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    align-items: flex-start;
+  }
+  .fact-row:last-child { border-bottom: none; }
+
+  .fact-icon {
+    font-size: 17px; flex-shrink: 0;
+    width: 26px; text-align: center;
+    padding-top: 1px;
+  }
+
+  .fact-body { flex: 1; }
+
+  .fact-title {
+    font-size: 10px; font-weight: 700;
+    color: #eceef6;
+    text-transform: uppercase; letter-spacing: 0.06em;
+    margin-bottom: 2px;
+  }
+
+  .fact-text {
+    font-size: 11px; line-height: 1.6; color: #eceef6;
+  }
+  .fact-text strong { color: #eceef6; }
+
+  /* government response tag */
+  .gov-tag {
+    display: inline-block;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 4px;
+    padding: 7px 10px;
+    font-size: 10px; color: #eceef6;
+    line-height: 1.55;
+    margin-top: 10px;
+    margin-bottom: 18px;
+    width: 100%;
+  }
+  .gov-tag strong { color: var(--lc, #ff5030); }
+
+  /* sep */
+  .sep {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,60,20,0.1), transparent);
+    margin: 0 24px;
+    position: relative; z-index: 1;
+  }
+
+  /* footer */
+  .footer {
+    position: relative; z-index: 1;
+    padding: 14px 24px 30px;
+    display: flex; justify-content: space-between;
+    align-items: flex-end;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    margin-top: 8px;
+  }
+  .footer-src { font-size: 8.5px; color: #d8dce8; line-height: 1.7; }
+  .footer-date { font-size: 8.5px; color: #d8dce8; text-align: right; line-height: 1.7; }
+
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="badge"><div class="live-dot"></div>Alltag unter der Blockade</div>
+    <h1>WAS PASSIERT<br><em>WIRKLICH</em> VOR ORT?</h1>
+    <div class="hero-sub">Japan · Südkorea · Taiwan · Indien — Teil 3</div>
+    <p class="hero-intro">
+      Statistiken sind das eine. Aber was bedeutet die Hormus-Blockade für einen Pendler in Tokio, eine Fabrikarbeiterin in Seoul, einen Chip-Ingenieur in Taipei oder eine Familie in Mumbai, die kochen will?
+      <strong>Hier sind die konkreten Realitäten.</strong>
+    </p>
+  </div>
+
+  <!-- ════ JAPAN ════ -->
+  <div class="cblock" style="--c: rgba(255,40,10,0.2); --lb: rgba(255,40,10,0.1); --lc: #ff4020; --ld: rgba(255,40,10,0.25);">
+    <div class="cblock-header">
+      <div class="cname-row">
+        <span class="cflag">🇯🇵</span>
+        <span class="cname">Japan</span>
+      </div>
+      <div class="clabel">254 Tage Ölreserve</div>
+    </div>
+
+    <p class="scene">
+      Ein Fabrikangestellter in Yokohama berichtet, dass sein Betrieb nur noch <strong>3 Tage pro Woche</strong> produziert. Die Treibstoffkosten für den Lieferservice sind so gestiegen, dass Lebensmittelhändler Bestellungen nur noch zweimal pro Woche liefern.
+    </p>
+
+    <div class="fact-row">
+      <div class="fact-icon">🏭</div>
+      <div class="fact-body">
+        <div class="fact-title">Fabriken & Betriebe</div>
+        <div class="fact-text">Vom Fabrikhallen über <strong>Badehäuser (Sentos)</strong> bis hin zu Transportfirmen: immer mehr Betriebe können keinen Diesel oder Heizöl mehr beschaffen. Nikkei Asia berichtete von wachsenden Engpässen quer durch alle Branchen.</div>
+      </div>
+    </div>
+
+    <div class="fact-row">
+      <div class="fact-icon">⛽</div>
+      <div class="fact-body">
+        <div class="fact-title">An der Tankstelle</div>
+        <div class="fact-text">Noch keine physischen Schlangen wie in Indien — aber <strong>stark gestiegene Spritpreise</strong>. Raffinerien haben die Regierung gebeten, Notreserven freizugeben. Japan gibt im Rahmen der IEA-Koordination <strong>80 Mio. Barrel</strong> aus seinen Reserven frei.</div>
+      </div>
+    </div>
+
+    <div class="fact-row">
+      <div class="fact-icon">⚡</div>
+      <div class="fact-body">
+        <div class="fact-title">Strom & Energie</div>
+        <div class="fact-text">Japan hat die Betriebsbeschränkungen für <strong>Kohlekraftwerke aufgehoben</strong>, um den LNG-Ausfall zu kompensieren. Mehr Kohle bedeutet: schlechtere Luft, höhere CO₂-Emissionen — der Klimaplan kollabiert im Notbetrieb.</div>
+      </div>
+    </div>
+
+    <div class="fact-row">
+      <div class="fact-icon">✈️</div>
+      <div class="fact-body">
+        <div class="fact-title">Reisen & Fliegen</div>
+        <div class="fact-text">Kerosinpreise über <strong>$195/Barrel</strong> (mehr als doppelt so hoch wie im Vorjahr). Fluggesellschaften erhöhen Ticketpreise und Gepäckgebühren. Regionale Strecken werden gestrichen.</div>
+      </div>
+    </div>
+
+    <div class="gov-tag">
+      🏛 <strong>Regierungsreaktion:</strong> Zweite Notreserven-Freigabe im Mai geplant. PM Takaichi in direktem Kontakt mit IEA-Chef Birol. Ziel Erneuerbare bis 2040 auf 50% beschleunigt.
+    </div>
+  </div>
+
+  <div class="sep"></div>
+
+  <!-- ════ SÜDKOREA ════ -->
+  <div class="cblock" style="--c: rgba(255,80,20,0.18); --lb: rgba(255,80,20,0.1); --lc: #ff6030; --ld: rgba(255,80,20,0.22);">
+    <div class="cblock-header">
+      <div class="cname-row">
+        <span class="cflag">🇰🇷</span>
+        <span class="cname">Südkorea</span>
+      </div>
+      <div class="clabel">208 Tage Ölreserve</div>
+    </div>
+
+    <p class="scene">
+      In Seoul fahren Regierungsfahrzeuge nur noch <strong>4 Tage pro Woche</strong>. Das Kennzeichen entscheidet: Gerade Nummern fahren an geraden Tagen, ungerade an ungeraden. Was einst nur in Entwicklungsländern bekannt war, ist jetzt Realität in der zehntgrößten Volkswirtschaft der Welt.
+    </p>
+
+    <div class="fact-row">
+      <div class="fact-icon">🚗</div>
+      <div class="fact-body">
+        <div class="fact-title">Kennzeichen-Rationing</div>
+        <div class="fact-text">Südkorea hat ein <strong>Kennzeichen-Wechselsystem</strong> eingeführt: PKW dürfen nur an alternierenden Tagen fahren. Laut Schätzungen kann diese Maßnahme den nationalen Benzinverbrauch sofort um <strong>50%</strong> senken.</div>
+      </div>
+    </div>
+
+    <div class="fact-row">
+      <div class="fact-icon">🏗️</div>
+      <div class="fact-body">
+        <div class="fact-title">Industrie & Chips</div>
+        <div class="fact-text">Samsung und SK Hynix produzieren aktuell noch — aber LNG-Engpässe gefährden die Stromversorgung der Chip-Fabriken. <strong>Stromausfälle könnten $350-Mio.-Maschinen zerstören</strong>. Naphtha-Export für 5 Monate eingeschränkt.</div>
+      </div>
+    </div>
+
+    <div class="fact-row">
+      <div class="fact-icon">📉</div>
+      <div class="fact-body">
+        <div class="fact-title">Börse & Währung</div>
+        <div class="fact-text">KOSPI fiel am 4. März um <strong>12% an einem Tag</strong> — schlimmster Einbruch in der Geschichte der Börse. Seitdem weitere Rückgänge. Der Won verliert an Wert, <strong>Inflation beschleunigt sich</strong>.</div>
+      </div>
+    </div>
+
+    <div class="fact-row">
+      <div class="fact-icon">⛽</div>
+      <div class="fact-body">
+        <div class="fact-title">Kraftstoff im Alltag</div>
+        <div class="fact-text">Tankstellen melden höhere Preise und Lieferprobleme. Südkorea erwägt, seine <strong>Kraftstoff-Exporte</strong> einzuschränken — bisher liefert Seoul Diesel an halb Asien, aber das Rohöl kommt nicht mehr an.</div>
+      </div>
+    </div>
+
+    <div class="gov-tag">
+      🏛 <strong>Regierungsreaktion:</strong> Pflichtrationing für Regierungsfahrzeuge. Freiwillige Sparappelle an Bevölkerung. Notfallplanung für Chip-Industrie aktiviert. Won-Stützungsmaßnahmen der Zentralbank.
+    </div>
+  </div>
+
+  <div class="sep"></div>
+
+  <!-- ════ TAIWAN ════ -->
+  <div class="cblock" style="--c: rgba(210,40,150,0.18); --lb: rgba(210,40,150,0.09); --lc: #d84898; --ld: rgba(210,40,150,0.22);">
+    <div class="cblock-header">
+      <div class="cname-row">
+        <span class="cflag">🇹🇼</span>
+        <span class="cname">Taiwan</span>
+      </div>
+      <div class="clabel" style="--lc:#d84898;">150 Tage Öl / 11 Tage Gas</div>
+    </div>
+
+    <p class="scene">
+      Ein TSMC-Ingenieur in Hsinchu erklärt intern: <em>„Wir haben Öl für Monate — aber unser Strom hängt am Gas. Und das Gas ist fast weg."</em> Die Fab läuft auf Sparflamme. <strong>Jeder Stromausfall kostet Millionen.</strong>
+    </p>
+
+    <div class="fact-row">
+      <div class="fact-icon">🔋</div>
+      <div class="fact-body">
+        <div class="fact-title">Die Gas-Zeitbombe</div>
+        <div class="fact-text">Taiwan hat <strong>150 Tage Ölreserve</strong> — aber nur <strong>11 Tage Erdgas</strong>. Da über 37% des Stroms aus LNG kommt, droht bei längerem Ausfall der Zusammenbruch der Stromversorgung — mitten im Sommer, wenn die Nachfrage um 40% steigt.</div>
+      </div>
+    </div>
+
+    <div class="fact-row">
+      <div class="fact-icon">⚙️</div>
+      <div class="fact-body">
+        <div class="fact-title">Chip-Fabriken unter Druck</div>
+        <div class="fact-text">TSMC fährt Kapazitäten vorsorglich zurück, um Stromausfälle zu vermeiden. Ein EUV-Lithografiegerät kostet <strong>über $350 Mio.</strong> — ein unerwarteter Stromausfall macht es unbrauchbar. Heliumpreis hat sich verdoppelt; ohne Helium kein Ätzen von 3-nm-Chips.</div>
+      </div>
+    </div>
+
+    <div class="fact-row">
+      <div class="fact-icon">🧪</div>
+      <div class="fact-body">
+        <div class="fact-title">Naphtha & Chemikalien</div>
+        <div class="fact-text">Taiwan hatte zuletzt auf <strong>nahöstliches Naphtha</strong> umgestellt (nach dem Stopp russischer Importe). Jetzt ist dieser Kanal auch weg. Petrochemikalien für Chip-Herstellung werden knapper, Preise steigen.</div>
+      </div>
+    </div>
+
+    <div class="fact-row">
+      <div class="fact-icon">🌡️</div>
+      <div class="fact-body">
+        <div class="fact-title">Sommer als Worst Case</div>
+        <div class="fact-text">Das Wirtschaftsministerium schloss Stromrationing bis April aus. <strong>Ab Juli/August</strong> — wenn Klimaanlagen auf Hochtouren laufen und Chip-Fabs gleichzeitig Strom brauchen — könnte es zu harten Entscheidungen kommen: Haushalt oder Industrie?</div>
+      </div>
+    </div>
+
+    <div class="gov-tag" style="--lc: #d84898;">
+      🏛 <strong>Regierungsreaktion:</strong> Notlieferungen aus Australien und USA gesichert bis April. Wirtschaftsminister schließt Rationing vorerst aus. Debatte über Atomkraft-Wiedereinstieg neu entfacht. TSMC investiert $56 Mrd. in Auslandsfabriken.
+    </div>
+  </div>
+
+  <div class="sep"></div>
+
+  <!-- ════ INDIEN ════ -->
+  <div class="cblock" style="--c: rgba(240,160,30,0.18); --lb: rgba(240,160,30,0.09); --lc: #f0a828; --ld: rgba(240,160,30,0.22);">
+    <div class="cblock-header">
+      <div class="cname-row">
+        <span class="cflag">🇮🇳</span>
+        <span class="cname">Indien</span>
+      </div>
+      <div class="clabel" style="--lc:#f0a828;">1,4 Mrd. Menschen betroffen</div>
+    </div>
+
+    <p class="scene">
+      In Mumbai haben Hotels und Restaurants im März <strong>geschlossen oder Betrieb eingeschränkt</strong> — kein Kochgas. In Gujarat steht die Keramikindustrie still. An Tankstellen in Delhi bildeten sich <strong>lange Schlangen</strong>, obwohl die Regierung versicherte, ausreichend Vorräte zu haben.
+    </p>
+
+    <div class="fact-row">
+      <div class="fact-icon">🍳</div>
+      <div class="fact-body">
+        <div class="fact-title">Kochgas-Krise (LPG)</div>
+        <div class="fact-text">LPG ist das <strong>Hauptkochgas für Haushalte</strong> in Indien. 60% der Nachfrage wird importiert — größtenteils über Hormus. Restaurants und Hotels in Mumbai mussten im März schließen oder auf Notlösungen umsteigen.</div>
+      </div>
+    </div>
+
+    <div class="fact-row">
+      <div class="fact-icon">⛽</div>
+      <div class="fact-body">
+        <div class="fact-title">Panik an der Zapfsäule</div>
+        <div class="fact-text">Trotz ausreichender Reserven bildeten sich <strong>lange Warteschlangen</strong> an Tankstellen. Die Regierung musste in New Delhi aktiv gegen Falschmeldungen vorgehen. In Gujarat lösten Gerüchte über Engpässe Hamsterkäufe aus.</div>
+      </div>
+    </div>
+
+    <div class="fact-row">
+      <div class="fact-icon">💰</div>
+      <div class="fact-body">
+        <div class="fact-title">Regierung zahlt den Preisunterschied</div>
+        <div class="fact-text">Benzinsteuer von ₹13 auf ₹3 pro Liter gesenkt. Dieselsteuer <strong>komplett gestrichen</strong>. Petroleum-Minister Puri: Die Regierung wählt zwischen Preiserhöhung für Bürger und <strong>„Schlag gegen die eigenen Finanzen"</strong> — sie wählt Letzeres.</div>
+      </div>
+    </div>
+
+    <div class="fact-row">
+      <div class="fact-icon">🏭</div>
+      <div class="fact-body">
+        <div class="fact-title">Industrie & Kochen mit Kohle</div>
+        <div class="fact-text">In Teilen Indiens wird auf <strong>Kohle zum Kochen</strong> umgestellt, wo kein LPG verfügbar ist. Coal-Power auf Maximum gefahren. Gujarat: Keramikbetriebe stillgelegt wegen Gasmangels. Düngerproduktion gefährdet — mit direkten Folgen für die nächste Ernte.</div>
+      </div>
+    </div>
+
+    <div class="fact-row">
+      <div class="fact-icon">✊</div>
+      <div class="fact-body">
+        <div class="fact-title">Proteste</div>
+        <div class="fact-text">Am 13. März 2026 wurden in <strong>Neu-Delhi</strong> Anhänger der Oppositionspartei Kongress festgenommen — bei Protesten gegen LPG-Preissteigerungen und Versorgungsengpässe. Politisch explosiv bei 1,4 Milliarden Menschen.</div>
+      </div>
+    </div>
+
+    <div class="gov-tag" style="--lc: #f0a828;">
+      🏛 <strong>Regierungsreaktion:</strong> Treibstoffsteuern drastisch gesenkt. Exportsteuer auf Diesel (₹21,50/L) und Kerosin (₹29,50/L) erhöht, um Inlandsbedarf zu sichern. Indische Raffinerien kaufen vermehrt <strong>russisches Öl</strong> als Ersatz.
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-src">
+      Quellen: Wikipedia (Iran war fuel crisis),<br>
+      Time.com, CFR, Nikkei Asia, Al Jazeera,<br>
+      Atlantic Council, Gulf Int. Forum (Apr. 2026)
+    </div>
+    <div class="footer-date">
+      Stand:<br>16. April 2026<br>
+      Teil 3 / 3
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
